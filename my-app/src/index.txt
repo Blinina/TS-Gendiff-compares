@@ -61,17 +61,6 @@ file2
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
 {
     "host": "hexlet.io",
     "timeout": 50,

@@ -24,3 +24,13 @@ justify-content: center;
 align-items: center;
 flex-direction: column;
 }
+.removed{
+  background-color: rgb(255, 112, 112);
+}
+.changed{
+  background-color: rgb(234, 140, 255);
+}
+.added{
+  background-color: rgb(155, 206, 145);
+
+}

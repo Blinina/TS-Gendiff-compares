@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { useForm, SubmitHandler } from "react-hook-form";
-import getDiff from './getDiff.js';
+import  getDiff from './getDiff';
+import ResultCom from './Result';
 
 type Inputs = {
   file1: string,
@@ -10,11 +11,14 @@ type Inputs = {
 
 
 function App() {
-  const [result, setResult] = useState('...');
+  const [result, setResult] = useState<Array<any> | null>(null)
+  // const [result, setResult] = useState('')
   const { register, handleSubmit } = useForm<Inputs>();
 
   const onSubmit: SubmitHandler<Inputs> = data => {
-    getDiff(data);
+    const res = getDiff(data);
+    setResult(res)
+    // console.log(res.split('/n'))
   }
 
   return (
@@ -43,7 +47,12 @@ function App() {
           </Button>
         </Form>
       </div>
-      {result}
+      <div>
+        <pre>
+        {/* {result} */}
+        </pre>
+        <ResultCom res={result}/>
+      </div>
     </div>
   );
 }
