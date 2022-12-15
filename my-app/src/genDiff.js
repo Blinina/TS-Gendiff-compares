@@ -57,9 +57,8 @@ const getformattedValue = (value, depth) => {
     const file1Obj = JSON.parse(data.file1);
     const file2Obj = JSON.parse(data.file2);
 
-    const ti = buildDiffTree(file1Obj, file2Obj);
-    const res = stylish(ti)
-    console.log(res)
+    return stylish(buildDiffTree(file1Obj, file2Obj)) ;
+   
 
     function buildDiffTree(file1, file2) {
         const keys = _.union(Object.keys(file1), Object.keys(file2));
@@ -68,10 +67,10 @@ const getformattedValue = (value, depth) => {
             if (_.isObject(file1[key]) && _.isObject(file2[key])) {
                 return { key, type: 'nested', children: buildDiffTree(file1[key], file2[key]) };
             }
-            if (!file1.hasOwnProperty(key) && file2.hasOwnProperty(key)) {
+            if (!_.has(file1, key)) {
                 return { key, type: 'added', value: file2[key] };
             }
-            if (!file2Obj.hasOwnProperty(key) && file1.hasOwnProperty(key)) {
+            if (!_.has(file2, key)) {
                 return { key, type: 'removed', value: file1[key] };
             }
             if (file1[key] !== file2[key]) {

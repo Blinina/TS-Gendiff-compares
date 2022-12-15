@@ -7,30 +7,76 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-.form-colomn{
+
+.form-colomn {
   display: flex;
   gap: 5%;
   justify-content: center;
+  width: 120%;
+
 }
-.app{
-margin: 50px auto;
-width: 80%;
-display: flex;
-justify-content: center;
-align-items: center;
-flex-direction: column;
+
+.app {
+  margin-top: 50px;
+  margin-bottom: 50px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
-.removed{
+
+pre {
+  margin: 0;
+  
+  width: 100%;
+
+
+}
+
+.removed {
   background-color: rgb(255, 112, 112);
 }
-.changed{
+
+.changed {
   background-color: rgb(234, 140, 255);
 }
-.added{
+
+.added {
   background-color: rgb(155, 206, 145);
 
+}
+
+.deep1 {
+  padding-left: 20px;
+}
+
+.deep3 {
+  margin-left: 3px;
+}
+
+.result-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+textarea {
+  width: 110%;
+  min-height: 300px!important;
+  padding: 5px;
+  background: #f3f3f3;
+  border-radius: 4px;
+  resize: vertical;
+  white-space: pre;
+  word-wrap: normal;
+  font-size: 10px;
 }

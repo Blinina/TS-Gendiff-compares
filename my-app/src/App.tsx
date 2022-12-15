@@ -11,6 +11,7 @@ type Inputs = {
 
 
 function App() {
+  let deep=1;
   const [result, setResult] = useState<Array<any> | null>(null)
   // const [result, setResult] = useState('')
   const { register, handleSubmit } = useForm<Inputs>();
@@ -18,7 +19,7 @@ function App() {
   const onSubmit: SubmitHandler<Inputs> = data => {
     const res = getDiff(data);
     setResult(res)
-    // console.log(res.split('/n'))
+    console.log(res)
   }
 
   return (
@@ -47,11 +48,8 @@ function App() {
           </Button>
         </Form>
       </div>
-      <div>
-        <pre>
-        {/* {result} */}
-        </pre>
-        <ResultCom res={result}/>
+      <div className='result-container'>
+        <ResultCom res={result}/> 
       </div>
     </div>
   );
