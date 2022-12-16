@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { useForm, SubmitHandler } from "react-hook-form";
-import  getDiff from './getDiff';
-import ResultCom from './Result';
-
+import getDiff from './getDiff';
+import ResultBefore from './ResultBefore';
+import ResultAfter from './ResultAfter'
 type Inputs = {
   file1: string,
   file2: string,
@@ -11,15 +11,13 @@ type Inputs = {
 
 
 function App() {
-  let deep=1;
-  const [result, setResult] = useState<Array<any> | null>(null)
-  // const [result, setResult] = useState('')
+  const [result, setResult] = useState<Array<any> | null>(null);
+
   const { register, handleSubmit } = useForm<Inputs>();
 
   const onSubmit: SubmitHandler<Inputs> = data => {
     const res = getDiff(data);
-    setResult(res)
-    console.log(res)
+    setResult(res);
   }
 
   return (
@@ -49,7 +47,8 @@ function App() {
         </Form>
       </div>
       <div className='result-container'>
-        <ResultCom res={result}/> 
+        <ResultBefore res={result} />
+        <ResultAfter res={result} />
       </div>
     </div>
   );
