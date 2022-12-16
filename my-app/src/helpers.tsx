@@ -33,4 +33,29 @@ export default function getDiff(data: { file1: string; file2: string }) {
 
 }
 
+export function getSpace(defaultDepth: number, backTab = 2) {
+    const tab = ' ';
+    const tabDefault = 4;
+    const defaultSpace = tab.repeat(defaultDepth * tabDefault - backTab);
+    return defaultSpace;
+};
+
+function getformattedValue(value: any, depth: number) {
+    if (!_.isObject(value)) {
+        return typeof value === 'string' ? `"${String(value)}"` : `${String(value)}`;
+    }
+    const newspace: any = getSpace(depth);
+    const elements = Object.entries(value);
+    const result: any = elements.map(([keys, elValue]) => `${newspace} "${keys}": ${getformattedValue(elValue, depth + 1)},`);
+return ['{', ...result, `${getSpace(depth, 4)}}`].join('\n');
+};
+
+export function stylish(item: any, depth: number,  type: number) {
+    const space = getSpace(depth);
+    if (item.type === 'changed') {
+        return <div className={item.type}>{`${space} "${item.key}": ${getformattedValue(item[`value${type}`], depth + 1)},\n`}</div>;
+    }
+    return <div className={item.type}>{`${space} "${item.key}": ${getformattedValue(item.value, depth + 1)},`}</div>;
+};
+
 

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { useForm, SubmitHandler } from "react-hook-form";
-import getDiff from './getDiff';
+import getDiff from './helpers';
 import ResultBefore from './ResultBefore';
 import ResultAfter from './ResultAfter'
 type Inputs = {
@@ -47,8 +47,12 @@ function App() {
         </Form>
       </div>
       <div className='result-container'>
-        <ResultBefore res={result} />
-        <ResultAfter res={result} />
+        <pre className='result-left'>
+          <ResultBefore res={result} render={true} />
+        </pre>
+        <pre className='result-right'>
+          <ResultAfter res={result} render={true} />
+        </pre>
       </div>
     </div>
   );

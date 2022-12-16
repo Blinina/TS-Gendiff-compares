@@ -43,15 +43,20 @@ pre {
 }
 
 .removed {
-  background-color: rgb(255, 112, 112);
+  color: rgba(206, 15, 15, 0.984);
+  cursor: pointer;
+
 }
 
 .changed {
-  background-color: rgb(234, 140, 255);
+  color: rgb(179, 12, 216);
+  cursor: pointer;
+
 }
 
 .added {
-  background-color: rgb(155, 206, 145);
+ color: green;
+ cursor: pointer;
 
 }
 
@@ -68,16 +73,57 @@ pre {
   display: flex;
   justify-content: center;
   width: 100%;
+  gap:5%;
 }
 
 textarea {
-  width: 110%;
+  width: 100%! important;
+  min-width: 300px!important;
   min-height: 300px!important;
   padding: 5px;
-  background: #f3f3f3;
+  background: #daf7fe;
   border-radius: 4px;
-  resize: vertical;
   white-space: pre;
   word-wrap: normal;
-  font-size: 10px;
+  font-size: 12px!important;
+  resize: horizontal !important;
+
+}
+form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.delete{
+  background-color: rgba(255, 169, 169, 0.909);
+}
+.addedSpece{
+  background-color: rgba(201, 249, 184, 0.909);
+
+}
+
+.line-number {
+  margin: 0 1em 0 -1em;
+  border-right: 1px solid #eee;
+  color: #bbb;
+  text-align: right;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  padding-left: 0.2em;
+  padding-right: 0.2em;
+}
+
+.line-number {
+  font: normal normal 13px/16px monospace;
+  font-family: Monaco, monospace;
+  color: black;
+  display: block;
+}
+.result-left, .result-right{
+  border: 1.5px solid;
+  border-radius: 10px;
+  border-color: rgb(248, 172, 223);
 }

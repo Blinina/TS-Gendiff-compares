@@ -1,7 +1,9 @@
 import _ from 'lodash';
+import { stylish, getSpace } from './helpers';
+
 interface AppProps {
     [key: string]: any;
-    typeVar?: string;
+    render: boolean;
 }
 interface ElInterface {
     key: string,
@@ -13,50 +15,28 @@ interface ElInterface {
 }
 
 
-export default function ResultAfter({ res, typeVar }: AppProps) {
-    console.log(typeVar)
+export default function ResultAfter({ res, render }: AppProps) {
     let depth = 1;
-    function getSpace(defaultDepth: number, backTab = 2) {
-        const tab = ' ';
-        const tabDefault = 4;
-        const defaultSpace = tab.repeat(defaultDepth * tabDefault - backTab);
-        return defaultSpace;
-    };
-
-
-    function getformattedValue(value: any, depth: number) {
-        if (!_.isObject(value)) {
-            return `"${String(value)}"`;
-        }
-        const newspace: any = getSpace(depth);
-        const elements = Object.entries(value);
-        const result: any = elements.map(([keys, elValue]) => `${newspace} "${keys}": ${getformattedValue(elValue, depth + 1)}`);
-
-        return ['{', ...result, `${getSpace(depth, 4)}}`].join('\n');
-    };
-    function stylish(item: any, depth: number) {
-        const space = getSpace(depth);
-        if (item.type === 'changed') {
-            return <div className={item.type}>{`${space} "${item.key}": ${getformattedValue(item.value2, depth + 1)}\n`}</div>;
-
-        }
-        return <div className={item.type}>{`${space} "${item.key}": ${getformattedValue(item.value, depth + 1)}`}</div>;
-    };
+    const typeField = 2;
     const space = getSpace(depth);
 
     return (
         <>
-            <pre>               
-                {res?.map((el: ElInterface) => el.type !== 'removed'
-                    &&
-                    ((el.type === 'nested')
-                        ?<>  <div>{space}{`{`}</div>         <div className={`${el.type}`}><span> {space} {`"${el.key}"`}: {el.children && <div className={` deep${depth}`}><ResultAfter res={el.children} /></div>} {`}`}</span></div>         <div>{space}{`}`}</div>
-                        </> 
-                        :
-                        (<>{stylish(el, depth)}</>))
-                )}
-            </pre>
-
+            {(render && res) && <div><span>{`  {`}</span></div>}
+            {res?.map((el: ElInterface) => el.type !== 'removed'
+                &&
+                ((el.type === 'nested')
+                    ?
+                    <>
+                        <div className={`${el.type}`}><span> {space} {`"${el.key}"`}: {`{`} <div className={` deep${depth}`}><ResultAfter res={el.children} render={false} /></div>{space}{` },`} </span></div>
+                    </>
+                    :
+                    <>{stylish(el, depth, typeField)}</>
+                )
+                // :
+                // <div className='delete'>{' '}</div>
+            )}
+            {(render && res) && <div><span>{` }`}</span></div>}
         </>
     )
 }
