@@ -1,21 +1,26 @@
 import { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { useForm, SubmitHandler } from "react-hook-form";
-import getDiff from './helpers';
+import { useDispatch, useSelector } from 'react-redux';
+
+import getDiff from '../helpers';
 import ResultBefore from './ResultBefore';
-import ResultAfter from './ResultAfter'
+import ResultAfter from './ResultAfter';
+import Dropzone from './Dropzone.jsx';
+
 type Inputs = {
   file1: string,
   file2: string,
 };
 
-
 function App() {
   const [result, setResult] = useState<Array<any> | null>(null);
 
   const { register, handleSubmit } = useForm<Inputs>();
+  const DataStore = useSelector((store :any)=>store.files)
 
   const onSubmit: SubmitHandler<Inputs> = data => {
+    console.log(data);
     const res = getDiff(data);
     setResult(res);
   }
@@ -23,22 +28,25 @@ function App() {
   return (
     <div >
       <h2>File difference</h2>
+     
       <div className="app">
         <Form onSubmit={handleSubmit(onSubmit)}>
           <div className='form-colomn'>
             <Form.Group className="mb-3 textarea" controlId="file1">
-              <Button variant="outline-primary">Primary</Button>
+              <Dropzone prop={"file1"}/>
 
-              <Form.Label>file1</Form.Label>
+              <Form.Label>{DataStore.file1 ? 'файл загружен' : "файл"}</Form.Label>
               <Form.Control as="textarea"
-                {...register("file1", { required: true })} />
+                value={DataStore.file1 && DataStore.file1}
+                {...register("file1")} />
             </Form.Group>
 
             <Form.Group className="mb-3 textarea" controlId="file2">
-              <Button variant="outline-primary">Primary</Button>
-              <Form.Label>file2</Form.Label>
+              <Dropzone  prop={"file2"}/>
+              <Form.Label>{DataStore.file2 ? 'файл загружен' : "файл"}</Form.Label>
               <Form.Control as="textarea"
-                {...register("file2", { required: true })} />
+             defaultValue={DataStore.file2 && DataStore.file2}
+                {...register("file2")} />
             </Form.Group>
           </div>
           <Button variant="primary" type="submit" onClick={handleSubmit(onSubmit)}>
@@ -59,3 +67,4 @@ function App() {
 }
 
 export default App;
+

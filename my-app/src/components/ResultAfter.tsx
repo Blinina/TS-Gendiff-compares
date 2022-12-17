@@ -1,5 +1,4 @@
-import _ from 'lodash';
-import { stylish, getSpace } from './helpers';
+import { stylish, getSpace } from '../helpers';
 
 interface AppProps {
     [key: string]: any;
@@ -24,17 +23,17 @@ export default function ResultAfter({ res, render }: AppProps) {
         <>
             {(render && res) && <div><span>{`  {`}</span></div>}
             {res?.map((el: ElInterface) => el.type !== 'removed'
-                &&
+                ?
                 ((el.type === 'nested')
                     ?
                     <>
-                        <div className={`${el.type}`}><span> {space} {`"${el.key}"`}: {`{`} <div className={` deep${depth}`}><ResultAfter res={el.children} render={false} /></div>{space}{` },`} </span></div>
+                        <div className={`${el.type}`}><span> {space}{`"${el.key}"`}: {`{`} <div className={` deep${depth}`}><ResultAfter res={el.children} render={false} /></div>{space}{` },`} </span></div>
                     </>
                     :
                     <>{stylish(el, depth, typeField)}</>
                 )
-                // :
-                // <div className='delete'>{' '}</div>
+                :
+                <div className='delete'>{' '}</div>
             )}
             {(render && res) && <div><span>{` }`}</span></div>}
         </>

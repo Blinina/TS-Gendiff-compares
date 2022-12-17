@@ -1,4 +1,5 @@
 import _ from 'lodash';
+
 type FileType = {
     [key: string]: string | number | NestedType;
 }
@@ -12,11 +13,14 @@ function buildDiffTree(file1: FileType | NestedType, file2: FileType | NestedTyp
     return keys.map((key: string) => {
         if (_.isObject(file1[key]) && _.isObject(file2[key])) {
             return { key, type: 'nested', children: buildDiffTree(file1[key] as NestedType, file2[key] as NestedType) };
-        } else if (!_.has(file1, key)) {
+        } 
+        if (!_.has(file1, key)) {
             return { key, type: 'added', value: file2[key] };
-        } else if (!_.has(file2, key)) {
+        } 
+        if (!_.has(file2, key)) {
             return { key, type: 'removed', value: file1[key] };
-        } else if (file1[key] !== file2[key]) {
+        }
+        if (file1[key] !== file2[key]) {
             return {
                 key, type: 'changed', value1: file1[key], value2: file2[key],
             };
@@ -26,9 +30,10 @@ function buildDiffTree(file1: FileType | NestedType, file2: FileType | NestedTyp
 }
 
 export default function getDiff(data: { file1: string; file2: string }) {
-
     const file1Obj: FileType = JSON.parse(data.file1);
     const file2Obj: FileType = JSON.parse(data.file2);
+    console.log(file1Obj)
+    console.log(file2Obj)
     return buildDiffTree(file1Obj, file2Obj);
 
 }
@@ -39,7 +44,6 @@ export function getSpace(defaultDepth: number, backTab = 2) {
     const defaultSpace = tab.repeat(defaultDepth * tabDefault - backTab);
     return defaultSpace;
 };
-
 function getformattedValue(value: any, depth: number) {
     if (!_.isObject(value)) {
         return typeof value === 'string' ? `"${String(value)}"` : `${String(value)}`;
@@ -54,7 +58,7 @@ export function stylish(item: any, depth: number,  type: number) {
     const space = getSpace(depth);
     if (item.type === 'changed') {
         return <div className={item.type}>{`${space} "${item.key}": ${getformattedValue(item[`value${type}`], depth + 1)},\n`}</div>;
-    }
+    };
     return <div className={item.type}>{`${space} "${item.key}": ${getformattedValue(item.value, depth + 1)},`}</div>;
 };
 

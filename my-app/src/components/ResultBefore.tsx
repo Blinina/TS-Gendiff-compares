@@ -1,6 +1,4 @@
-import _ from 'lodash';
-import { useEffect, useState } from 'react';
-import { stylish, getSpace } from './helpers';
+import { stylish, getSpace } from '../helpers';
 
 interface AppProps {
     [key: string]: any;
@@ -27,7 +25,7 @@ export default function ResultBefore({ res, render }: AppProps) {
                 ((el.type === 'nested')
                     ?
                     <>
-                        <div className={`${el.type}`}><span> {space} {`"${el.key}"`}: {`{`} <div className={` deep${depth}`}><ResultBefore res={el.children} render={false} /></div> {space}{`},`} </span></div>
+                        <div className={`${el.type}`}><span> {space}{`"${el.key}"`}: {`{`} <div className={` deep${depth}`}><ResultBefore res={el.children} render={false} /></div> {space}{`},`} </span></div>
                     </>
                     :
                     <>{stylish(el, depth, typeField)}</>
