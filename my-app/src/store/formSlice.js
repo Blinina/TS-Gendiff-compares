@@ -9,17 +9,18 @@ const sliceForm = createSlice({
     name: "files",
     initialState,
     reducers: {
-        setFile1: (state, { payload }) => {
-            state.file1 = payload;
+        setFile: (state, { payload }) => {
+            state[payload.file]= payload.text;
         },
-        setFile2: (state, { payload }) => {
-            state.file2 = payload;
+       
+        deleteFile: (state, { payload }) => {
+            state[payload.file] = '';
         },
     },
 });
 
 
 export const {
-    setFile1, setFile2
+    setFile, deleteFile
 } = sliceForm.actions;
 export default sliceForm.reducer;

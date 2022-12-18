@@ -6,6 +6,18 @@ type FileType = {
 type NestedType = {
     [key: string]: string | number | NestedType;
 }
+interface Result {
+    [key: string]: any;
+    render: boolean;
+}
+interface ElInterface {
+    key: string,
+    type: string,
+    children?: any,
+    value?: string | number,
+    value1?: string | number,
+    value2?: string | number,
+}
 
 function buildDiffTree(file1: FileType | NestedType, file2: FileType | NestedType): any {
     const keys: string[] = _.union(Object.keys(file1), Object.keys(file2));
@@ -13,10 +25,10 @@ function buildDiffTree(file1: FileType | NestedType, file2: FileType | NestedTyp
     return keys.map((key: string) => {
         if (_.isObject(file1[key]) && _.isObject(file2[key])) {
             return { key, type: 'nested', children: buildDiffTree(file1[key] as NestedType, file2[key] as NestedType) };
-        } 
+        }
         if (!_.has(file1, key)) {
             return { key, type: 'added', value: file2[key] };
-        } 
+        }
         if (!_.has(file2, key)) {
             return { key, type: 'removed', value: file1[key] };
         }
@@ -32,8 +44,6 @@ function buildDiffTree(file1: FileType | NestedType, file2: FileType | NestedTyp
 export default function getDiff(data: { file1: string; file2: string }) {
     const file1Obj: FileType = JSON.parse(data.file1);
     const file2Obj: FileType = JSON.parse(data.file2);
-    console.log(file1Obj)
-    console.log(file2Obj)
     return buildDiffTree(file1Obj, file2Obj);
 
 }
@@ -51,15 +61,31 @@ function getformattedValue(value: any, depth: number) {
     const newspace: any = getSpace(depth);
     const elements = Object.entries(value);
     const result: any = elements.map(([keys, elValue]) => `${newspace} "${keys}": ${getformattedValue(elValue, depth + 1)},`);
-return ['{', ...result, `${getSpace(depth, 4)}}`].join('\n');
+    return ['{', ...result, `${getSpace(depth, 4)}}`].join('\n');
 };
 
-export function stylish(item: any, depth: number,  type: number) {
+export function stylish(item: any, depth: number, type: number) {
     const space = getSpace(depth);
     if (item.type === 'changed') {
         return <div className={item.type}>{`${space} "${item.key}": ${getformattedValue(item[`value${type}`], depth + 1)},\n`}</div>;
     };
     return <div className={item.type}>{`${space} "${item.key}": ${getformattedValue(item.value, depth + 1)},`}</div>;
 };
+
+
+export const getCountDifferents = (data: Result ) => {
+    let resultCountDif: number = 0;
+    const iter = (node: Result) => {
+        node.forEach((el: ElInterface) => {
+            if (el.type === 'nested') {
+                iter(el.children)
+            } else if (el.type !== 'unchanged') {
+                resultCountDif += 1;
+            }
+        });
+    }
+    iter(data)
+    return resultCountDif;
+}
 
 

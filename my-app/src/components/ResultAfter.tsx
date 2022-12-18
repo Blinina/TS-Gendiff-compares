@@ -27,7 +27,7 @@ export default function ResultAfter({ res, render }: AppProps) {
                 ((el.type === 'nested')
                     ?
                     <>
-                        <div className={`${el.type}`}><span> {space}{`"${el.key}"`}: {`{`} <div className={` deep${depth}`}><ResultAfter res={el.children} render={false} /></div>{space}{` },`} </span></div>
+                        <div><span className={`${el.type}`}> {space}{`"${el.key}"`}: {`{`} <div className={` deep${depth}`}><ResultAfter res={el.children} render={false} /></div>{space}{` },`} </span></div>
                     </>
                     :
                     <>{stylish(el, depth, typeField)}</>

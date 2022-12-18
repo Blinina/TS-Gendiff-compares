@@ -2,7 +2,7 @@ import { useDropzone } from 'react-dropzone'
 import React, { useCallback, useState, useRef, useEffect } from 'react'
 import { Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux';
-import { setFile1, setFile2 } from '../store/formSlice';
+import { setFile, deleteFile } from '../store/formSlice';
 
 
 export default function Dropzone({ prop }) {
@@ -16,25 +16,25 @@ export default function Dropzone({ prop }) {
       reader.onload = () => {
         const binaryStr = reader.result;
         const res = String.fromCharCode.apply(null, new Uint8Array(binaryStr));
-        if (prop === 'file1') {
-          dispatch((setFile1(res)));
-        } else if (prop === 'file2') {
-          dispatch((setFile2(res)));
-        }
-   
+        dispatch((setFile({ "file": prop, "text": res })));
       }
       reader.readAsArrayBuffer(file);
     })
-
   }, [])
   const { getRootProps, getInputProps, acceptedFiles } = useDropzone({ onDrop })
+  const handleDelete = () => {
+    dispatch((deleteFile({ "file": prop })));
+    acceptedFiles.splice(0, acceptedFiles.length)
+  };
 
   return (
-    <div {...getRootProps()}>
-      <input {...getInputProps()} />
-      <Button>Загрузить файл</Button>
+    <div>
+      <div {...getRootProps()}>
+        <input {...getInputProps()} />
+        <Button>Загрузить файл</Button>
+      </div>
       <aside>
-        {acceptedFiles.map((el)=><p>{el.path}</p>)}
+        {acceptedFiles.map((el) => <> <p>{el.path}</p><Button onClick={handleDelete}>&#10007;</Button></>)}
       </aside>
     </div>
   )
