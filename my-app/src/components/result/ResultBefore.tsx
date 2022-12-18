@@ -1,4 +1,4 @@
-import { stylish, getSpace } from '../helpers';
+import { stylish, getSpace } from '../../helpers';
 
 interface AppProps {
     [key: string]: any;
@@ -21,7 +21,7 @@ export default function ResultBefore({ res, render }: AppProps) {
         <>
             {(render && res) && <div><span>{` {`}</span></div>}
             {res?.map((el: ElInterface) => el.type !== 'added'
-                &&
+                ?
                 ((el.type === 'nested')
                     ?
                     <>
@@ -30,8 +30,8 @@ export default function ResultBefore({ res, render }: AppProps) {
                     :
                     <>{stylish(el, depth, typeField)}</>
                 )
-                // :
-                // <div className='addedSpece'>{' '}</div>
+                :
+                <div className='addedSpece'>{' '}</div>
             )}
             {(render && res) && <div><span>{`  }`}</span></div>}
         </>

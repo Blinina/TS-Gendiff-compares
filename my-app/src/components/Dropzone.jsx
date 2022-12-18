@@ -28,13 +28,16 @@ export default function Dropzone({ prop }) {
   };
 
   return (
-    <div>
+    <div className='drop-container'>
       <div {...getRootProps()}>
         <input {...getInputProps()} />
-        <Button>Загрузить файл</Button>
+        <Button className='drop-btn' variant="light">Choose File</Button>
       </div>
       <aside>
-        {acceptedFiles.map((el) => <> <p>{el.path}</p><Button onClick={handleDelete}>&#10007;</Button></>)}
+        {acceptedFiles.map((el) => <div className='drop-file'>
+           <p>{el.path}</p>
+           <Button variant="danger" className='danger-btn' onClick={handleDelete}>&#10007;</Button>
+           </div>)}
       </aside>
     </div>
   )
