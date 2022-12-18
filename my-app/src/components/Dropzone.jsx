@@ -6,18 +6,7 @@ import { setFile1, setFile2 } from '../store/formSlice';
 
 
 export default function Dropzone({ prop }) {
-
   const dispatch = useDispatch();
-
-  const fileCur = useRef();
-  
-  useEffect(()=>{
-    if (prop === 'file1') {
-      dispatch((setFile1(fileCur.current)));
-    } else if (prop === 'file2') {
-      dispatch((setFile2(fileCur.current)));
-    }
-  }, [fileCur.current]);
 
   const onDrop = useCallback((acceptedFiles) => {
     acceptedFiles.forEach((file) => {
@@ -27,19 +16,26 @@ export default function Dropzone({ prop }) {
       reader.onload = () => {
         const binaryStr = reader.result;
         const res = String.fromCharCode.apply(null, new Uint8Array(binaryStr));
-        fileCur.current = String(res);    
+        if (prop === 'file1') {
+          dispatch((setFile1(res)));
+        } else if (prop === 'file2') {
+          dispatch((setFile2(res)));
+        }
+   
       }
       reader.readAsArrayBuffer(file);
     })
 
   }, [])
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
+  const { getRootProps, getInputProps, acceptedFiles } = useDropzone({ onDrop })
 
   return (
     <div {...getRootProps()}>
       <input {...getInputProps()} />
       <Button>Загрузить файл</Button>
-      <span>{isDragActive ? 'загрузить' : 'lol'}</span>
+      <aside>
+        {acceptedFiles.map((el)=><p>{el.path}</p>)}
+      </aside>
     </div>
   )
 }

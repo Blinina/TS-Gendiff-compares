@@ -12,40 +12,48 @@ type Inputs = {
   file1: string,
   file2: string,
 };
+interface Data {
+  [key: string]: string;
+}
 
 function App() {
   const [result, setResult] = useState<Array<any> | null>(null);
 
   const { register, handleSubmit } = useForm<Inputs>();
-  const DataStore = useSelector((store :any)=>store.files)
+  const DataStore = useSelector((store: any) => store.files);
 
-  const onSubmit: SubmitHandler<Inputs> = data => {
-    console.log(data);
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    const dataKeys: string[] = Object.keys(data);
+    dataKeys.forEach((el) => {
+      if (data[el] === '' && DataStore[`${el}`]) {
+        data[el] = DataStore[`${el}`];
+      }
+    })
     const res = getDiff(data);
     setResult(res);
-  }
+  };
 
   return (
     <div >
       <h2>File difference</h2>
-     
+
       <div className="app">
         <Form onSubmit={handleSubmit(onSubmit)}>
           <div className='form-colomn'>
             <Form.Group className="mb-3 textarea" controlId="file1">
-              <Dropzone prop={"file1"}/>
+              <Dropzone prop={"file1"} />
 
               <Form.Label>{DataStore.file1 ? 'файл загружен' : "файл"}</Form.Label>
               <Form.Control as="textarea"
-                value={DataStore.file1 && DataStore.file1}
+                defaultValue={DataStore.file1 && DataStore.file1}
                 {...register("file1")} />
             </Form.Group>
 
             <Form.Group className="mb-3 textarea" controlId="file2">
-              <Dropzone  prop={"file2"}/>
+              <Dropzone prop={"file2"} />
               <Form.Label>{DataStore.file2 ? 'файл загружен' : "файл"}</Form.Label>
               <Form.Control as="textarea"
-             defaultValue={DataStore.file2 && DataStore.file2}
+                defaultValue={DataStore.file2 && DataStore.file2}
                 {...register("file2")} />
             </Form.Group>
           </div>
