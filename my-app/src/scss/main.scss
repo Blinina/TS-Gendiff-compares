@@ -39,6 +39,7 @@ p {
   display: flex;
   gap: 5%;
   justify-content: center;
+  flex-wrap: wrap;
   width: 120%;
 
 }
@@ -64,18 +65,25 @@ pre {
 .removed {
   color: rgba(206, 15, 15, 0.984);
   cursor: pointer;
+  display: inline;
 
 }
 
 .changed {
   color: rgba(182, 21, 210, 0.925);
   cursor: pointer;
+  display: inline;
 
+}
+.unchanged{
+  cursor: pointer;
+  display: inline;
 }
 
 .added {
   color: green;
   cursor: pointer;
+  display: inline;
 
 }
 
@@ -197,6 +205,18 @@ form {
 
   }
 }
+.form-invalid{
+  box-shadow: 1px 1px 8px 0px  rgba(245, 84, 100, 0.9098039216)!important;
+  &:focus {
+    box-shadow: 3px 3px 9px 1px  rgba(245, 84, 100, 0.9098039216)!important;
+
+  }
+}
+.invalid {
+color:  rgba(244, 32, 53, 0.91);
+font-size: 13px;
+font-weight: 600;
+}
 
 .main-bth {
   background-color: #ef9a9a;
@@ -219,7 +239,7 @@ form {
 }
 .plan-container{
  margin:  0 auto;
- width: 70%;
+ width: 60%;
 
 }
 .plan-result{
@@ -227,4 +247,44 @@ form {
   border-radius: 10px;
   border-color: rgb(248, 172, 223);
   padding: 15px 10px 15px 20px;
+  word-wrap: break-all;
+}
+@media screen and (max-width: 1000px) {
+  .plan-result{
+    font-size: 12px;
+    div{
+      word-wrap: break-all;
+    }
+  }
+  .plan-container{
+    width: 100%;
+   
+   }
+}
+@media screen and (max-width: 650px) {
+  .container{
+padding: 0;
+  }
+  .result-left, .result-right{
+    font-size: 12px;
+    width: 70%;
+
+  }
+  .result-container{
+    flex-wrap: wrap;
+  }
+  .card{
+    width: 70%;
+  }
+  
+  
+}
+@media screen and (max-width: 450px) {
+
+  .result-left, .result-right{
+width: 100%;
+  }
+
+  
+  
 }

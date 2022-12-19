@@ -1,4 +1,4 @@
-import { stylish, getSpace } from '../../helpers';
+import { stylish, getSpace } from '../../helpers/stylish';
 
 interface AppProps {
     [key: string]: any;

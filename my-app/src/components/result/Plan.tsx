@@ -49,7 +49,7 @@ return (
     {res.map((el: ElInterface)=> <>
         {el.type==='nested' 
         ?
-         <><Plan res={el.children} acc={path==='' ? `${el.key}` : `${path}.${el.key}`}/> </>
+         <Plan res={el.children} acc={path==='' ? `${el.key}` : `${path}.${el.key}`}/>
          :  
          <div  key={`${el.key}-${el.type}`}><span className={el.type}>{iter(el)}</span></div>}
 

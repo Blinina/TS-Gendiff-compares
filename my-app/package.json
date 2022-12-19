@@ -10,6 +10,8 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
+    "@types/js-yaml": "^4.0.5",
+    "@types/lodash": "^4.14.191",
     "babel-cli": "^6.9.0",
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-plugin-transform-regenerator": "^6.9.0",
@@ -21,9 +23,7 @@
     "eslint-plugin-standard": "^1.3.2",
     "mocha": "^2.5.2",
     "standard-version": "^2.2.1",
-    "watchd": "github:mklabs/watchd",
-    "@types/js-yaml": "^4.0.5",
-    "@types/lodash": "^4.14.191"
+    "watchd": "github:mklabs/watchd"
   },
   "bake": {
     "description": "Scaffold a basic ES6 setup",
@@ -49,14 +49,18 @@
     "bootstrap": "^5.2.3",
     "lodash": "^4.17.21",
     "react": "^18.2.0",
+    "react-app": "^1.1.2",
     "react-bootstrap": "^2.7.0",
     "react-dom": "^18.2.0",
     "react-dropzone": "^14.2.3",
     "react-hook-form": "^7.40.0",
     "react-redux": "^8.0.5",
+    "react-router-dom": "^6.5.0",
     "react-scripts": "5.0.1",
+    "react-scroll": "^1.8.9",
     "sass": "^1.57.0",
     "typescript": "^4.9.4",
+    "vercel": "^28.9.0",
     "web-vitals": "^2.1.4"
   },
   "eslintConfig": {
