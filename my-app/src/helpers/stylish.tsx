@@ -1,11 +1,6 @@
 import _ from 'lodash';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 
-const tooltip = (elem: string, type: string) => (
-    <Tooltip id="tooltip">
-        <strong>{`"${elem}"`}</strong> was {type}.
-    </Tooltip>
-);
 
 export interface ElInterface {
     key: string,
@@ -31,6 +26,12 @@ function getformattedValue(value: any, depth: number) {
     const result: any = elements.map(([keys, elValue]) => `${newspace} "${keys}": ${getformattedValue(elValue, depth + 1)},`);
     return ['{', ...result, `${getSpace(depth, 4)}}`].join('\n');
 };
+
+const tooltip = (elem: string, type: string) => (
+    <Tooltip id="tooltip">
+        <strong>{`"${elem}"`}</strong> was {type}.
+    </Tooltip>
+);
 
 export function stylish(item: any, depth: number, type: number) {
     const space = getSpace(depth);

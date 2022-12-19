@@ -4,7 +4,7 @@ interface ResultInterface {
     [key: string]: any;
     render: boolean;
 }
-export default function getCountDifferents(data: ResultInterface){
+export default function getCountDifferents(data: ResultInterface) {
     let resultCountDif: number = 0;
     const iter = (node: ResultInterface) => {
         node.forEach((el: ElInterface) => {
@@ -15,7 +15,7 @@ export default function getCountDifferents(data: ResultInterface){
             }
         });
     }
-    iter(data)
+    iter(data);
     return resultCountDif;
 }
 

@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { useForm, SubmitHandler } from "react-hook-form";
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import getDiff from '../helpers/getDiff';
 import getCountDifferents from '../helpers/getCountDifferents';
@@ -9,7 +9,6 @@ import ResultBefore from './result/ResultBefore';
 import ResultAfter from './result/ResultAfter';
 import Dropzone from './Dropzone.jsx';
 import Plan from './result/Plan';
-import { useNavigate,  BrowserRouter, Routes } from 'react-router-dom';
 
 type Inputs = {
   file1: string,
@@ -17,23 +16,24 @@ type Inputs = {
 };
 
 function App() {
-  const dispatch = useDispatch();
-  // const navigate = useNavigate()
+  const btnEl = useRef<HTMLButtonElement>(null);
+
   const [result, setResult] = useState<Array<any> | null>(null);
   const [planFormatte, setPlanFormatte] = useState(false);
   const [countDifferents, setCountDifferents] = useState(0);
-  const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
+  const { register, handleSubmit } = useForm<Inputs>();
   const [errFile1, setErrFile1] = useState('');
   const [errFile2, setErrFile2] = useState('');
 
   const DataStore = useSelector((store: any) => store.files);
+  const errorFileRead = useSelector((store: any) => store.errors);
 
-  const validateFn = (value:string) => {
+  const validateFn = (value: string) => {
     let validValue = '';
     try {
       JSON.parse(value);
-    } catch (err:any) {
-     validValue = err.message.split(',')[1];
+    } catch (err: any) {
+      validValue = err.message.split(',')[1];
     }
     return validValue;
   };
@@ -50,17 +50,15 @@ function App() {
       setCountDifferents(getCountDifferents(res));
       setErrFile1('');
       setErrFile2('');
-      // navigate('./ppp');  
+      const buttonPosition: DOMRect | undefined = btnEl?.current?.getBoundingClientRect();
+      if (buttonPosition) { window.scroll(0, buttonPosition?.y); }
     } catch {
       setErrFile1(validateFn(data.file1))
       setErrFile2(validateFn(data.file2))
     }
   };
-  const errorFileRead = useSelector((store:any)=>store.errors);
 
   return (
-    // <BrowserRouter>
-    //    <Routes>
     <div >
       <div>
         <h2>{`{ JSON Diff }`}</h2>
@@ -74,7 +72,7 @@ function App() {
               <Form.Label>First JSON document</Form.Label>
               <Dropzone prop={"file1"} />
               <Form.Control as="textarea"
-              className={(errFile1  || errorFileRead.file1) && 'form-invalid'}
+                className={(errFile1 || errorFileRead.file1) && 'form-invalid'}
                 defaultValue={DataStore.file1 && DataStore.file1}
                 {...register("file1")}
               />
@@ -85,8 +83,8 @@ function App() {
               <Form.Label>Second JSON document</Form.Label>
               <Dropzone prop={"file2"} />
               <Form.Control as="textarea"
-              className={(errFile2  || errorFileRead.file2) && 'form-invalid'}
-              defaultValue={DataStore.file2 && DataStore.file2}
+                className={(errFile2 || errorFileRead.file2) && 'form-invalid'}
+                defaultValue={DataStore.file2 && DataStore.file2}
                 {...register("file2")}
               />
               {<span className='invalid'>{errFile2 || errorFileRead.file2}</span>}
@@ -98,8 +96,8 @@ function App() {
         </Form>
       </div>
       {result &&
-        <div className='container' id="result">
-          <Button variant="light" className='btn-res' onClick={() => setPlanFormatte(!planFormatte)}>
+        <div className='container'>
+          <Button variant="light" ref={btnEl} className='btn-res' onClick={() => setPlanFormatte(!planFormatte)}>
             {planFormatte ? 'Show JSON' : 'Show PLAN'}
           </Button>
           <div className='countDifferents'>{countDifferents} difference(s) between the two JSON documents</div>
@@ -120,8 +118,6 @@ function App() {
             </div>}
         </div>}
     </div>
-    // </Routes>
-    // </BrowserRouter>
   );
 }
 

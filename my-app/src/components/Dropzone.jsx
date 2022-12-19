@@ -1,7 +1,7 @@
 import { useDropzone } from 'react-dropzone';
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 import { Button } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setFile, deleteFile } from '../store/formSlice';
 import { setErrorFile } from '../store/errorSice';
 

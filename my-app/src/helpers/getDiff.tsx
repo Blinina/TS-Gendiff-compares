@@ -31,7 +31,7 @@ function buildDiffTree(file1: FileType | NestedType, file2: FileType | NestedTyp
 }
 
 export default function getDiff(data: { file1: string; file2: string }) {
-        const file1Obj: FileType = JSON.parse(data.file1);
-        const file2Obj: FileType = JSON.parse(data.file2);
-        return buildDiffTree(file1Obj, file2Obj);
+    const file1Obj: FileType = JSON.parse(data.file1);
+    const file2Obj: FileType = JSON.parse(data.file2);
+    return buildDiffTree(file1Obj, file2Obj);
 };

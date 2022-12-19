@@ -13,7 +13,6 @@ interface ElInterface {
     value2?: string | number,
 }
 
-
 export default function ResultAfter({ res, render }: AppProps) {
     let depth = 1;
     const typeField = 2;

@@ -3,7 +3,6 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
         file1: '',
         file2: ''
-
 };
 
 const sliceError = createSlice({
@@ -11,13 +10,11 @@ const sliceError = createSlice({
     initialState,
     reducers: {
         setErrorFile: (state, { payload }) => {
-            console.log(payload)
             state[payload.file]= payload.text;
         },
        
     },
 });
-
 
 export const {
     setErrorFile,

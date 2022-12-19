@@ -2,7 +2,6 @@
   font-family: Main;
   src: url(../fonts/Montserrat-Regular.ttf);
 }
-
 body {
   margin: 0;
   font-family: Main;
@@ -17,17 +16,12 @@ body {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
 :root {
   --main: #cb9ca1;
   --pink: #ffcdd2;
-
-
-
-
 }
 
 h2,
@@ -41,13 +35,11 @@ p {
   justify-content: center;
   flex-wrap: wrap;
   width: 120%;
-
 }
 
 .app {
   margin-top: 20px;
   margin-bottom: 20px;
-
   display: flex;
   justify-content: center;
   align-items: center;
@@ -56,26 +48,22 @@ p {
 
 pre {
   margin: 0;
-
   width: 100%;
-
-
 }
 
 .removed {
   color: rgba(206, 15, 15, 0.984);
   cursor: pointer;
   display: inline;
-
 }
 
 .changed {
   color: rgba(182, 21, 210, 0.925);
   cursor: pointer;
   display: inline;
-
 }
-.unchanged{
+
+.unchanged {
   cursor: pointer;
   display: inline;
 }
@@ -84,9 +72,7 @@ pre {
   color: green;
   cursor: pointer;
   display: inline;
-
 }
-
 
 .deep1 {
   padding-left: 20px;
@@ -96,9 +82,8 @@ pre {
   margin-left: 3px;
 }
 
-
 textarea {
-  width: 100% ! important;
+  width: 100% !important;
   min-width: 300px !important;
   min-height: 300px !important;
   padding: 5px;
@@ -108,7 +93,6 @@ textarea {
   word-wrap: normal;
   font-size: 12px !important;
   resize: horizontal !important;
-
 }
 
 form {
@@ -118,12 +102,11 @@ form {
 }
 
 .delete {
-  background-color: #f46775e8;
+  background-color: rgba(244, 103, 117, 0.9098039216);
 }
 
 .addedSpece {
   background-color: rgba(201, 249, 184, 0.909);
-
 }
 
 .line-number {
@@ -146,6 +129,7 @@ form {
   color: black;
   display: block;
 }
+
 .result-container {
   display: flex;
   justify-content: center;
@@ -159,7 +143,7 @@ form {
   border-radius: 10px;
   border-color: rgb(248, 172, 223);
   width: 50%;
-  max-width: 450px!important;
+  max-width: 450px !important;
 }
 
 .drop-container {
@@ -167,26 +151,25 @@ form {
   align-items: center;
   font-size: 0.8em;
   justify-content: center;
-  gap: 5%;
-
-  .drop-btn {
-    font-size: 0.8em !important;
-    background-color: var(--pink);
-  }
-
-  .danger-btn {
-    font-size: 0.7em !important;
-    border-radius: 50px;
-    padding: 3px 6px !important;
-    background-color: #f55464e8;
-
-  }
+  gap: 2.5%;
+}
+.drop-container .drop-btn {
+  font-size: 0.7em !important;
+  background-color: var(--pink);
+  margin-left: 5px;
+}
+.drop-container .danger-btn {
+  font-size: 0.7em !important;
+  border-radius: 50px;
+  padding: 3px 6px !important;
+  background-color: rgba(245, 84, 100, 0.9098039216);
+  margin-right: 5px;
 }
 
 .drop-file {
   display: flex;
   align-items: center;
-  gap: 10%;
+  gap: 5%;
 }
 
 .card {
@@ -198,24 +181,28 @@ form {
 
 .form-control {
   background-color: rgba(247, 246, 246, 0.995) !important;
-
-  &:focus {
-    border-color: #b2dfdb !important;
-    box-shadow: 0 0 0 0.25rem rgba(162, 241, 232, 0.742);
-
-  }
 }
-.form-invalid{
-  box-shadow: 1px 1px 8px 0px  rgba(245, 84, 100, 0.9098039216)!important;
-  &:focus {
-    box-shadow: 3px 3px 9px 1px  rgba(245, 84, 100, 0.9098039216)!important;
-
-  }
+.form-control:focus {
+  border-color: #b2dfdb !important;
+  box-shadow: 0 0 0 0.25rem rgba(162, 241, 232, 0.742);
 }
+
+.form-invalid {
+  box-shadow: 1px 1px 8px 0px rgba(245, 84, 100, 0.9098039216) !important;
+}
+.form-invalid:focus {
+  box-shadow: 3px 3px 9px 1px rgba(245, 84, 100, 0.9098039216) !important;
+}
+
 .invalid {
-color:  rgba(244, 32, 53, 0.91);
-font-size: 13px;
-font-weight: 600;
+  color: rgba(244, 32, 53, 0.91);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.form-label {
+  margin-top: 3px;
+  margin-bottom: 3px;
 }
 
 .main-bth {
@@ -224,67 +211,64 @@ font-weight: 600;
 
 .btn-res {
   border-color: #b2dfdb !important;
-  background-color: #c6ece8 !important
+  background-color: #c6ece8 !important;
 }
 
 .container {
-  margin-bottom:15px;
+  margin-bottom: 15px;
 }
-.countDifferents{
+
+.countDifferents {
   display: block;
   background-color: #9ef3cd;
   margin: 10px 0 15px;
   padding: 5px 7px;
   border-radius: 10px;
 }
-.plan-container{
- margin:  0 auto;
- width: 60%;
 
+.plan-container {
+  margin: 0 auto;
+  width: 60%;
 }
-.plan-result{
+
+.plan-result {
   border: 1.5px solid;
   border-radius: 10px;
   border-color: rgb(248, 172, 223);
   padding: 15px 10px 15px 20px;
   word-wrap: break-all;
 }
+
 @media screen and (max-width: 1000px) {
-  .plan-result{
+  .plan-result {
     font-size: 12px;
-    div{
-      word-wrap: break-all;
-    }
   }
-  .plan-container{
+  .plan-result div {
+    word-wrap: break-all;
+  }
+  .plan-container {
     width: 100%;
-   
-   }
+  }
 }
 @media screen and (max-width: 650px) {
-  .container{
-padding: 0;
+  .container {
+    padding: 0;
   }
-  .result-left, .result-right{
+  .result-left, .result-right {
     font-size: 12px;
     width: 70%;
-
   }
-  .result-container{
+  .result-container {
     flex-wrap: wrap;
   }
-  .card{
+  .card {
     width: 70%;
   }
-  
-  
 }
 @media screen and (max-width: 450px) {
-
-  .result-left, .result-right{
-width: 100%;
+  .result-left, .result-right {
+    width: 100%;
   }
-
-  
-  
 }
+
+/*# sourceMappingURL=main.css.map */
