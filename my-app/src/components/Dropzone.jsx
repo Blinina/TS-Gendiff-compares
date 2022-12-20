@@ -2,8 +2,7 @@ import { useDropzone } from 'react-dropzone';
 import { useCallback } from 'react';
 import { Button } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
-import { setFile, deleteFile } from '../store/formSlice';
-import { setErrorFile } from '../store/errorSice';
+import { setFile, deleteFile, setErrorFile } from '../store/formSlice';
 
 export default function Dropzone({ prop }) {
   const dispatch = useDispatch();

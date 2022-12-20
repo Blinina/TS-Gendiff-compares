@@ -1,10 +1,10 @@
 import _ from 'lodash';
 
 
-type FileType = {
+export type FileType = {
     [key: string]: string | number | NestedType;
 }
-type NestedType = {
+export type NestedType = {
     [key: string]: string | number | NestedType;
 }
 

@@ -2,7 +2,6 @@ import { useState, useRef } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useSelector } from 'react-redux';
-
 import getDiff from '../helpers/getDiff';
 import getCountDifferents from '../helpers/getCountDifferents';
 import ResultBefore from './result/ResultBefore';
@@ -14,6 +13,16 @@ type Inputs = {
   file1: string,
   file2: string,
 };
+type Store = {
+  files: {
+    file1: string,
+    file2: string,
+    errors: {
+      file1: string,
+      file2: string,
+    }
+  }
+}
 
 function App() {
   const btnEl = useRef<HTMLButtonElement>(null);
@@ -25,15 +34,15 @@ function App() {
   const [errFile1, setErrFile1] = useState('');
   const [errFile2, setErrFile2] = useState('');
 
-  const DataStore = useSelector((store: any) => store.files);
-  const errorFileRead = useSelector((store: any) => store.errors);
+  const DataStore = useSelector((store: Store) => store.files);
+  const errorFileRead = useSelector((store: Store) => store.files.errors);
 
   const validateFn = (value: string) => {
     let validValue = '';
     try {
       JSON.parse(value);
-    } catch (err: any) {
-      validValue = err.message.split(',')[1];
+    } catch (err) {
+      validValue = (err as Error).message.split(',')[1];
     }
     return validValue;
   };
@@ -43,6 +52,7 @@ function App() {
       if (data[el] === '' && DataStore[`${el}`]) {
         data[el] = DataStore[`${el}`];
       }
+    console.log(data)
     });
     try {
       const res = getDiff(data);
@@ -51,10 +61,12 @@ function App() {
       setErrFile1('');
       setErrFile2('');
       const buttonPosition: DOMRect | undefined = btnEl?.current?.getBoundingClientRect();
-      if (buttonPosition) { window.scroll(0, buttonPosition?.y); }
+      if (buttonPosition) {
+        window.scroll(0, buttonPosition?.y);
+      }
     } catch {
-      setErrFile1(validateFn(data.file1))
-      setErrFile2(validateFn(data.file2))
+      setErrFile1(validateFn(data.file1));
+      setErrFile2(validateFn(data.file2));
     }
   };
 
@@ -64,7 +76,6 @@ function App() {
         <h2>{`{ JSON Diff }`}</h2>
         <span>Created by Blinina</span>
       </div>
-
       <div className="app">
         <Form onSubmit={handleSubmit(onSubmit)}>
           <div className='form-colomn'>
@@ -78,7 +89,6 @@ function App() {
               />
               {<span className='invalid'>{errFile1 || errorFileRead.file1}</span>}
             </Form.Group>
-
             <Form.Group className="mb-3 textarea card" controlId="file2">
               <Form.Label>Second JSON document</Form.Label>
               <Dropzone prop={"file2"} />
@@ -101,22 +111,26 @@ function App() {
             {planFormatte ? 'Show JSON' : 'Show PLAN'}
           </Button>
           <div className='countDifferents'>{countDifferents} difference(s) between the two JSON documents</div>
-          {planFormatte ?
-            <div className='plan-container'>
-              <pre className='plan-result'>
-                <Plan res={result} acc={''} />
-              </pre>
-            </div>
-            :
-            <div className='result-container'>
-              <pre className='result-left'>
-                <ResultBefore res={result} render={true} />
-              </pre>
-              <pre className='result-right'>
-                <ResultAfter res={result} render={true} />
-              </pre>
-            </div>}
-        </div>}
+          {
+            planFormatte
+              ?
+              <div className='plan-container'>
+                <pre className='plan-result'>
+                  <Plan res={result} acc={''} />
+                </pre>
+              </div>
+              :
+              <div className='result-container'>
+                <pre className='result-left'>
+                  <ResultBefore res={result} render={true} />
+                </pre>
+                <pre className='result-right'>
+                  <ResultAfter res={result} render={true} />
+                </pre>
+              </div>
+          }
+        </div>
+      }
     </div>
   );
 }

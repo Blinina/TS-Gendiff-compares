@@ -1,20 +1,9 @@
 import { stylish, getSpace } from '../../helpers/stylish';
+import { ElInterface, ResultProps } from '../../helpers/TsInterface/mainInterface';
 
-interface AppProps {
-    [key: string]: any;
-    render: boolean;
-}
-interface ElInterface {
-    key: string,
-    type: string,
-    children?: any,
-    value?: string | number,
-    value1?: string | number,
-    value2?: string | number,
-}
+
 let depth = 1;
-
-export default function ResultBefore({ res, render }: AppProps) {
+export default function ResultBefore({ res, render }: ResultProps) {
     const typeField = 1;
     const space = getSpace(depth);
     return (

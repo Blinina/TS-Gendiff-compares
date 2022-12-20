@@ -3,6 +3,10 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
     file1: '',
     file2: '',
+    errors: {
+        file1: '',
+        file2: '',
+    }
 };
 
 const sliceForm = createSlice({
@@ -16,11 +20,14 @@ const sliceForm = createSlice({
         deleteFile: (state, { payload }) => {
             state[payload.file] = '';
         },
+        setErrorFile: (state, { payload }) => {
+            state.errors[payload.file]= payload.text;
+        },
     },
 });
 
 
 export const {
-    setFile, deleteFile
+    setFile, deleteFile, setErrorFile
 } = sliceForm.actions;
 export default sliceForm.reducer;

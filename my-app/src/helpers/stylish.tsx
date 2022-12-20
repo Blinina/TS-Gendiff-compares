@@ -1,15 +1,7 @@
 import _ from 'lodash';
+import { ElInterface } from './TsInterface/mainInterface';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 
-
-export interface ElInterface {
-    key: string,
-    type: string,
-    children?: any,
-    value?: string | number,
-    value1?: string | number,
-    value2?: string | number,
-}
 
 export function getSpace(defaultDepth: number, backTab = 2) {
     const tab = ' ';
@@ -17,7 +9,7 @@ export function getSpace(defaultDepth: number, backTab = 2) {
     const defaultSpace = tab.repeat(defaultDepth * tabDefault - backTab);
     return defaultSpace;
 };
-function getformattedValue(value: any, depth: number) {
+function getformattedValue(value: string | object | boolean | number | undefined, depth: number) {
     if (!_.isObject(value)) {
         return typeof value === 'string' ? `"${String(value)}"` : `${String(value)}`;
     }
@@ -41,7 +33,7 @@ export function stylish(item: any, depth: number, type: number) {
                 <div className={item.type}>{`${space} "${item.key}": ${getformattedValue(item[`value${type}`], depth + 1)},\n`}</div>
             </OverlayTrigger>
         </div>);
-    };
+    }
     return (<div>
         <OverlayTrigger placement="bottom" overlay={tooltip(item.key, item.type)}>
             <div className={item.type}>{`${space} "${item.key}": ${getformattedValue(item.value, depth + 1)},`}</div>

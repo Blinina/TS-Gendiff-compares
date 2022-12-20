@@ -1,22 +1,10 @@
 import _ from 'lodash';
-
-interface AppProps {
-  [key: string]: any;
-  acc: string;
-}
-interface ElInterface {
-  key: string,
-  type: string,
-  children?: any,
-  value?: string | number,
-  value1?: string | number,
-  value2?: string | number,
-}
+import { AppProps, ElInterface } from '../../helpers/TsInterface/mainInterface';
 
 export default function Plan({ res, acc }: AppProps) {
   let path = acc;
 
-  const formatValue = (value: any) => {
+  const formatValue = (value: string | object |  number | boolean | undefined) => {
     if (_.isObject(value)) {
       return '[complex value]';
     }
@@ -26,7 +14,7 @@ export default function Plan({ res, acc }: AppProps) {
     return `${String(value)}`;
   };
 
-  const iter = (dkey: any) => {
+  const iter = (dkey: ElInterface) => {
     const fullPath = (acc === '') ? `${dkey.key}` : `${acc}.${dkey.key}`;
 
     switch (dkey.type) {
@@ -53,5 +41,4 @@ export default function Plan({ res, acc }: AppProps) {
       </>)}
     </>
   )
-
 }
