@@ -12,7 +12,7 @@ Features:
 
 Stack: TypeScript, React, React-dropzone, React-hook-form, React-redux.
 
-![main](./images/main.jpg)
+![main](/images/main.jpg)
 
 ![json](./images/json.jpg)
 
