@@ -3,9 +3,7 @@
 
 Features:
 1. Loading external files.
-
 2. Сomparing two json files.
-
 3. Get results in two formats
 
 [**APP**](https://my-app-blinina.vercel.app/)
