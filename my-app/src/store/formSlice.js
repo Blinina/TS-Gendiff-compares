@@ -6,7 +6,7 @@ const initialState = {
     errors: {
         file1: '',
         file2: '',
-    }
+    },
 };
 
 const sliceForm = createSlice({
@@ -14,18 +14,17 @@ const sliceForm = createSlice({
     initialState,
     reducers: {
         setFile: (state, { payload }) => {
-            state[payload.file]= payload.text;
+            state[payload.file] = payload.text;
         },
-       
+
         deleteFile: (state, { payload }) => {
             state[payload.file] = '';
         },
         setErrorFile: (state, { payload }) => {
-            state.errors[payload.file]= payload.text;
+            state.errors[payload.file] = payload.text;
         },
     },
 });
-
 
 export const {
     setFile, deleteFile, setErrorFile

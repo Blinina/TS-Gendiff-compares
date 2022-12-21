@@ -11,7 +11,7 @@ export default function getCountDifferents(data: ResultInterface) {
                 iter(el.children as ResultInterface)
             } else if (el.type !== 'unchanged') {
                 resultCountDif += 1;
-            }
+            };
         });
     }
     iter(data);

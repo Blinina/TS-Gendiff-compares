@@ -1,10 +1,10 @@
 import { useDropzone } from 'react-dropzone';
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import { Button } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { setFile, deleteFile, setErrorFile } from '../store/formSlice';
 
-export default function Dropzone({ prop }) {
+export default function Dropzone({ prop, dropFile, setDropFile, setValue }) {
   const dispatch = useDispatch();
 
   const onDrop = useCallback((acceptedFiles) => {
@@ -18,20 +18,31 @@ export default function Dropzone({ prop }) {
       };
       reader.onload = () => {
         const binaryStr = reader.result;
-
         const res = String.fromCharCode.apply(null, new Uint8Array(binaryStr));
         dispatch(setFile({ "file": prop, "text": res }));
-      }
-
-        reader.readAsArrayBuffer(file);
-      })
+        setValue(prop, res);
+      };
+      reader.readAsArrayBuffer(file);
+    })
   }, [])
   const { getRootProps, getInputProps, acceptedFiles } = useDropzone({ onDrop });
+
+
   const handleDelete = () => {
     acceptedFiles.splice(0, acceptedFiles.length);
     dispatch(setErrorFile({ "file": prop, "text": '' }));
     dispatch((deleteFile({ "file": prop })));
+    setValue(prop, '');
   };
+
+  useEffect(() => {
+    if (!dropFile) {
+      acceptedFiles.splice(0, acceptedFiles.length);
+      dispatch((deleteFile({ "file": prop })));
+      setDropFile(true);
+      setValue(prop, '')
+    }
+  }, [dropFile]);
 
   return (
     <div className='drop-container'>

@@ -2,6 +2,7 @@
   font-family: Main;
   src: url(../fonts/Montserrat-Regular.ttf);
 }
+
 body {
   margin: 0;
   font-family: Main;
@@ -153,11 +154,13 @@ form {
   justify-content: center;
   gap: 2.5%;
 }
+
 .drop-container .drop-btn {
   font-size: 0.7em !important;
   background-color: var(--pink);
   margin-left: 5px;
 }
+
 .drop-container .danger-btn {
   font-size: 0.7em !important;
   border-radius: 50px;
@@ -182,6 +185,7 @@ form {
 .form-control {
   background-color: rgba(247, 246, 246, 0.995) !important;
 }
+
 .form-control:focus {
   border-color: #b2dfdb !important;
   box-shadow: 0 0 0 0.25rem rgba(162, 241, 232, 0.742);
@@ -190,6 +194,7 @@ form {
 .form-invalid {
   box-shadow: 1px 1px 8px 0px rgba(245, 84, 100, 0.9098039216) !important;
 }
+
 .form-invalid:focus {
   box-shadow: 3px 3px 9px 1px rgba(245, 84, 100, 0.9098039216) !important;
 }
@@ -198,6 +203,14 @@ form {
   color: rgba(244, 32, 53, 0.91);
   font-size: 13px;
   font-weight: 600;
+}
+
+.have-file {
+  font-size: 12px;
+}
+
+.file-delete {
+  cursor: pointer;
 }
 
 .form-label {
@@ -243,30 +256,40 @@ form {
   .plan-result {
     font-size: 12px;
   }
+
   .plan-result div {
     word-wrap: break-all;
   }
+
   .plan-container {
     width: 100%;
   }
 }
+
 @media screen and (max-width: 650px) {
   .container {
     padding: 0;
   }
-  .result-left, .result-right {
+
+  .result-left,
+  .result-right {
     font-size: 12px;
     width: 70%;
   }
+
   .result-container {
     flex-wrap: wrap;
   }
+
   .card {
     width: 70%;
   }
 }
+
 @media screen and (max-width: 450px) {
-  .result-left, .result-right {
+
+  .result-left,
+  .result-right {
     width: 100%;
   }
 }
